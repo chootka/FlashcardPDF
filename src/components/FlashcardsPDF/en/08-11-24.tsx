@@ -14,7 +14,15 @@ const flashcardData = [
   { english: 'plant', german: 'die Pflanze (eine Pflanze)\nVerb: pflanzen (to plant)' }
 ];
 
+const CARDS_PER_PAGE = 10; // 5 rows × 2 columns
+
 const FlashcardsPDF = () => {
+  // Split cards into pages of 10 cards each
+  const pages = [];
+  for (let i = 0; i < flashcardData.length; i += CARDS_PER_PAGE) {
+    pages.push(flashcardData.slice(i, i + CARDS_PER_PAGE));
+  }
+
   return (
     <div className="mx-auto">
       {/* Print instructions */}
@@ -40,35 +48,43 @@ const FlashcardsPDF = () => {
       </div>
 
       <div id="flashcard-container">
-        {/* Page 1 - English side */}
-        <div className="flashcard-page">
-          <h2 className="text-center font-bold mb-4 print:hidden">Page 1 - English (Front)</h2>
-          <div className="flashcard-grid">
-            {flashcardData.map((card, index) => (
-              <div key={`front-${index}`} className="flashcard-cell">
-                <div className="flashcard-inner">
-                  <span className="flashcard-content whitespace-pre-line">{card.english}</span>
+        {/* Front pages */}
+        {pages.map((pageCards, pageIndex) => (
+          <div key={`front-page-${pageIndex}`} className="flashcard-page">
+            <h2 className="text-center font-bold mb-4 print:hidden">
+              Page {pageIndex * 2 + 1} - English (Front)
+            </h2>
+            <div className="flashcard-grid">
+              {pageCards.map((card, index) => (
+                <div key={`front-${pageIndex}-${index}`} className="flashcard-cell">
+                  <div className="flashcard-inner">
+                    <span className="flashcard-content whitespace-pre-line">{card.english}</span>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
+        ))}
 
-        {/* Page 2 - German side */}
-        <div className="flashcard-page">
-          <h2 className="text-center font-bold mb-4 print:hidden">Page 2 - German (Back)</h2>
-          <div className="flashcard-grid flashcard-back-grid">
-            {[...flashcardData].reverse().map((card, index) => (
-              <div key={`back-${index}`} className="flashcard-cell">
-                <div className="flashcard-inner flashcard-back-content">
-                  <span className="flashcard-content whitespace-pre-line">{card.german}</span>
+        {/* Back pages */}
+        {pages.map((pageCards, pageIndex) => (
+          <div key={`back-page-${pageIndex}`} className="flashcard-page">
+            <h2 className="text-center font-bold mb-4 print:hidden">
+              Page {pageIndex * 2 + 2} - German (Back)
+            </h2>
+            <div className="flashcard-grid flashcard-back-grid">
+              {pageCards.map((card, index) => (
+                <div key={`back-${pageIndex}-${index}`} className="flashcard-cell">
+                  <div className="flashcard-inner flashcard-back-content">
+                    <span className="flashcard-content whitespace-pre-line">{card.german}</span>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
+        ))}
       </div>
-      {/* Print stylesheet */}
+
       <style data-print-styles>{`
         @media print {
           @page {
@@ -81,6 +97,9 @@ const FlashcardsPDF = () => {
           }
           .print\\:hidden {
             display: none;
+          }
+          .flashcard-page {
+            page-break-after: always;
           }
         }
       `}</style>

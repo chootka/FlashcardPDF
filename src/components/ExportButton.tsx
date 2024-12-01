@@ -22,11 +22,23 @@ const ExportButton: React.FC<ExportButtonProps> = ({ filename }) => {
     
     for (let i = 0; i < pages.length; i++) {
       const canvas = await html2canvas(pages[i] as HTMLElement, {
-        scale: 2,
+        scale: 4,
         useCORS: true,
+        logging: false,
+        allowTaint: true,
+        // letterRendering: true,
+        backgroundColor: '#FFF',
+        imageTimeout: 0,
+        removeContainer: true,
       });
 
-      const imgData = canvas.toDataURL('image/jpeg', 1.0);
+      // stupid hack to make sure the pdf is the right size
+      const magickNumber = 1123;
+      const gridHeight = pages[i].querySelector('.flashcard-grid')?.clientHeight;
+      const scaleFactor = Math.ceil(gridHeight ? magickNumber / gridHeight : 1);
+      // end stupid hack
+
+      const imgData = canvas.toDataURL('image/png', 1.0);
       const pdfWidth = pdf.internal.pageSize.getWidth();
       const pdfHeight = pdf.internal.pageSize.getHeight();
 
@@ -34,7 +46,7 @@ const ExportButton: React.FC<ExportButtonProps> = ({ filename }) => {
         pdf.addPage();
       }
       
-      pdf.addImage(imgData, 'JPEG', 0, 0, pdfWidth, pdfHeight);
+      pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight/scaleFactor, '', 'FAST');
     }
 
     // Show titles again after PDF generation

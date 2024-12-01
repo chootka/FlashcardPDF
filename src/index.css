@@ -5,16 +5,14 @@
 /* Layout styles */
 .flashcard-page {
   width: 210mm;
-  height: 297mm;
+  /* height: 297mm; */
   background-color: white;
+  margin-top: 80px;
 }
 
 .flashcard-page:first-of-type {
   page-break-after: always;
-}
-
-.flashcard-page:last-of-type {
-  margin-top: 80px;
+  margin-top: 0;
 }
 
 .flashcard-grid {
@@ -54,6 +52,9 @@
   text-align: center;
   padding: 0.5rem;
   line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 /* Button styles */
@@ -82,8 +83,11 @@
     padding: 0;
   }
   
-  .print\:hidden {
-    display: none;
+  .print\:hidden,
+  h1,
+  h2,
+  .print-hide {
+    display: none !important;
   }
 
   .flashcard-content {
@@ -92,18 +96,10 @@
 
   .flashcard-page {
     page-break-after: always;
+    margin-top: 0;
   }
 
   .flashcard-page:last-of-type {
     page-break-after: avoid;
-    margin-top: 0;
-  }
-
-  .flashcard-back-grid {
-    transform: rotate(180deg);
-  }
-
-  .flashcard-back-content {
-    transform: rotate(180deg);
   }
 } 

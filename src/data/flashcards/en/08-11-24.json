@@ -1,0 +1,42 @@
+[
+  {
+    "english": "high",
+    "german": "hoch\n\nExample: der hohe Berg"
+  },
+  {
+    "english": "every",
+    "german": "jede/jeder/jedes\n\nExample: jeden Tag (every day)"
+  },
+  {
+    "english": "near",
+    "german": "nah / in der Nähe\n\nExample: die Nähe (nearness)"
+  },
+  {
+    "english": "add",
+    "german": "hinzufügen / addieren\n\nExample: etwas hinzufügen"
+  },
+  {
+    "english": "food",
+    "german": "das Essen (ein Essen)\ndie Nahrung (eine Nahrung)"
+  },
+  {
+    "english": "between",
+    "german": "zwischen\n\nExample: zwischen den Häusern"
+  },
+  {
+    "english": "own",
+    "german": "eigen\n\nExample: mein eigenes Haus"
+  },
+  {
+    "english": "below",
+    "german": "unter / unterhalb\n\nExample: unter dem Tisch"
+  },
+  {
+    "english": "country",
+    "german": "das Land (ein Land)\nPlural: die Länder"
+  },
+  {
+    "english": "plant",
+    "german": "die Pflanze (eine Pflanze)\nVerb: pflanzen (to plant)"
+  }
+] 
